@@ -5,15 +5,15 @@
 
 - name: Download "OpenImageIO"
   get_url:
-    url: https://github.com/colour-science/artifacts/suites/233020849/artifacts/44967
-    dest: /tmp/OpenImageIO-Release-2.0.10.zip
+    url: https://github.com/colour-science/artifacts/releases/download/OpenImageIO-Release-2.1.10.1/OpenImageIO-Release-2.1.10.1.zip
+    dest: /tmp/OpenImageIO-Release-2.1.10.1.zip
   when: not openimageio_library.stat.exists
 
 - name: Install "OpenImageIO"
   shell: |
-    unzip OpenImageIO-Release-2.0.10.zip
-    cp OpenImageIO-Release-2.0.10/linux64/bin/* /usr/bin/
-    cp -r OpenImageIO-Release-2.0.10/linux64/lib/* /usr/lib/
+    unzip OpenImageIO-Release-2.1.10.1.zip -d OpenImageIO-Release-2.1.10.1
+    cp OpenImageIO-Release-2.1.10.1/linux64/bin/* /usr/bin/
+    cp -r OpenImageIO-Release-2.1.10.1/linux64/lib/* /usr/lib/
   args:
     chdir: /tmp
   become: yes

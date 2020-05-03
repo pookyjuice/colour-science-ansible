@@ -1,8 +1,8 @@
 ---
 - hosts: all
   vars:
-    COLOUR_SCIENCE__ROOT_DIRECTORY: "/colour-science"
-    COLOUR_SCIENCE__PYTHON_VERSION: "3.6"
+    COLOUR_SCIENCE__ROOT_DIRECTORY: "{{ lookup('env','COLOUR_SCIENCE__ROOT_DIRECTORY') or '/colour-science' }}"
+    COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.6' }}"
   environment:
     PATH: "{{ ansible_env.HOME }}/.poetry/bin:{{ ansible_env.PATH }}"
   tasks:
@@ -73,6 +73,11 @@
     - import_tasks: "tasks/clone_repository.yml"
       vars:
         repository: colour-analysis
+
+    # Repository: Colour - Mitsuba
+    - import_tasks: "tasks/clone_repository.yml"
+      vars:
+        repository: colour-mitsuba
 
     # Repository: Colour - Nuke
     - import_tasks: "tasks/clone_repository.yml"
