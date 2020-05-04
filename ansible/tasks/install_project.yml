@@ -35,7 +35,7 @@
 
 - name: Check if "OpenImageIO" Library is Installed for "{{ project }}"
   shell: |
-    [ -f "$(poetry env info -p)/lib/python3.6/site-packages/OpenImageIO.so" ] && echo True || echo False
+    [ -f "$(poetry env info -p)/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so" ] && echo True || echo False
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   register: project_openimageio_library_exists
@@ -43,7 +43,7 @@
 - name: Install "OpenImageIO" Library
   shell: |
     source $(poetry env info -p)/bin/activate
-    $(poetry env info -p)/bin/pip list | grep -c imageio && cp /tmp/OpenImageIO-Release-2.1.10.1/linux64/lib/python3.6/site-packages/OpenImageIO.so $(poetry env info -p)/lib/python3.6/site-packages/ || exit 0
+    $(poetry env info -p)/bin/pip list | grep -c imageio && cp /tmp/OpenImageIO-Release-2.1.10.1/linux64/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so $(poetry env info -p)/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/ || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   when: project_openimageio_library_exists == "False"
