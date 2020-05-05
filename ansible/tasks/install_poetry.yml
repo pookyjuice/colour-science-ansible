@@ -27,7 +27,7 @@
 
 - name: Download Poetry
   get_url:
-    url: https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
+    url: https://raw.githubusercontent.com/colour-science/poetry/feature/python3/get-poetry.py
     dest: /tmp/get-poetry.py
   when: not poetry_executable.stat.exists
 
