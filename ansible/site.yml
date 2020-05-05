@@ -4,6 +4,7 @@
     COLOUR_SCIENCE__ROOT_DIRECTORY: "{{ lookup('env','COLOUR_SCIENCE__ROOT_DIRECTORY') or '/colour-science' }}"
     COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.6' }}"
     COLOUR_SCIENCE__ACTIVE_PROJECTS: "{{ lookup('env','COLOUR_SCIENCE__ACTIVE_PROJECTS') or 'awesome-colour:colour:colour-checker-detection:colour-analysis-three.js:colour-datasets:colour-demosaicing:colour-dash:colour-hdri:colour-science.org:colour-branding:colour-analysis:colour-mitsuba:colour-nuke:colour-ocean:colour-playground:colour-spectroscope:colour-webhook' }}"
+    COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT: "{{ lookup('env','COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT') or '8888' }}"
   environment:
     PATH: "{{ ansible_env.HOME }}/.poetry/bin:{{ ansible_env.PATH }}"
   tasks:
