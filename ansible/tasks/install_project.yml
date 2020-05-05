@@ -2,7 +2,7 @@
   blockinfile:
     state: present
     insertafter: EOF
-    dest: "{{ ansible_env.HOME }}/.profile"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Add \"{{ project }}\" Alias"
     content: |
       alias {{ project }}="cd {{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }} && poem"
