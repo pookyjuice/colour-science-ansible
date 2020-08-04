@@ -32,7 +32,7 @@
   when: not poetry_executable.stat.exists
 
 - name: Install Poetry
-  script: /tmp/get-poetry.py --preview
+  script: /tmp/get-poetry.py --yes
   args:
     executable: python3
   when: not poetry_executable.stat.exists
