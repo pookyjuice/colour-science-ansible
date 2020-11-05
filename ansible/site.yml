@@ -3,6 +3,8 @@
   vars:
     COLOUR_SCIENCE__ROOT_DIRECTORY: "{{ lookup('env','COLOUR_SCIENCE__ROOT_DIRECTORY') or '/colour-science' }}"
     COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.6' }}"
+    COLOUR_SCIENCE__ACTIVE_PROJECTS: "{{ lookup('env','COLOUR_SCIENCE__ACTIVE_PROJECTS') or 'awesome-colour:colour:colour-checker-detection:colour-analysis-three.js:colour-datasets:colour-demosaicing:colour-dash:colour-hdri:colour-science.org:colour-branding:colour-analysis:colour-mitsuba:colour-nuke:colour-ocean:colour-playground:colour-spectroscope:colour-webhook' }}"
+    COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT: "{{ lookup('env','COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT') or '8888' }}"
   environment:
     PATH: "{{ ansible_env.HOME }}/.poetry/bin:{{ ansible_env.PATH }}"
   tasks:
@@ -12,94 +14,111 @@
 
     # Project: Awesome Colour
     - import_tasks: "tasks/install_project.yml"
+      when: "'awesome-colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: awesome-colour
         extras: development
 
     # Project: Colour
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
         extras: optional plotting
 
     # Project: Colour - Checker Detection
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-checker-detection' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-checker-detection
         extras: development
 
     # Project: Colour - Analysis - Three.js
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-analysis-three.js' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-analysis-three.js
         extras: development
 
     # Project: Colour - Datasets
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-datasets' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-datasets
         extras: development
 
     # Project: Colour - Demosaicing
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-demosaicing' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-demosaicing
         extras: plotting
 
     # Project: Colour - Dash
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-dash' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-dash
         extras: development
 
     # Project: Colour - HDRI
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-hdri' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-hdri
         extras: optional plotting
 
     # Project: colour-science.org
     - import_tasks: "tasks/install_project.yml"
+      when: "'colour-science.org' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-science.org
         extras: development
 
     # Repository: Colour - Branding
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-branding' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-branding
 
     # Repository: Colour - Analysis
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-analysis' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-analysis
 
     # Repository: Colour - Mitsuba
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-mitsuba' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-mitsuba
 
     # Repository: Colour - Nuke
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-nuke' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-nuke
 
     # Repository: Colour - Ocean
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-ocean' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-ocean
 
     # Repository: Colour - Playground
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-playground' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-playground
 
     # Repository: Colour - Spectroscope
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-spectroscope' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-spectroscope
 
     # Repository: Colour - Webhook
     - import_tasks: "tasks/clone_repository.yml"
+      when: "'colour-webhook' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         repository: colour-webhook

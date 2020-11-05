@@ -7,7 +7,7 @@
   blockinfile:
     state: present
     insertafter: EOF
-    dest: "{{ ansible_env.HOME }}/.profile"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Add \"Poem\" Function"
     content: |
       # Activate Poetry virtual environment.
@@ -27,12 +27,22 @@
 
 - name: Download Poetry
   get_url:
-    url: https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
+    url: https://raw.githubusercontent.com/colour-science/poetry/feature/python3/get-poetry.py
     dest: /tmp/get-poetry.py
   when: not poetry_executable.stat.exists
 
 - name: Install Poetry
-  script: /tmp/get-poetry.py --preview
+  script: /tmp/get-poetry.py --yes
   args:
     executable: python3
   when: not poetry_executable.stat.exists
+
+- name: Add Poetry to $PATH in ".bashrc"
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add Poetry to $PATH"
+    content: |
+      export PATH={{ ansible_env.HOME }}/.poetry/bin:$PATH
+
