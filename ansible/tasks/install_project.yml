@@ -20,6 +20,7 @@
 - name: Install Repository Dependencies
   shell: |
     poetry env use {{ COLOUR_SCIENCE__PYTHON_VERSION }}
+    poetry run python -m pip install --upgrade pip
     poetry install --extras "{{ extras }}"
     source $(poetry env info -p)/bin/activate
     $(poetry env info -p)/bin/pip list | grep -c imageio && $(poetry env info -p)/bin/python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
