@@ -23,7 +23,7 @@
       when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
-        extras: optional plotting
+        extras: optional meshing plotting
 
     # Project: Colour - Checker Detection
     - import_tasks: "tasks/install_project.yml"
