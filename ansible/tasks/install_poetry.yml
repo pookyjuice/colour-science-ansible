@@ -29,7 +29,7 @@
   get_url:
     url: https://install.python-poetry.org
     dest: /tmp/install-poetry.py
-    when: not poetry_executable.stat.exists
+  when: not poetry_executable.stat.exists
 
 - name: Install Poetry
   script: /tmp/install-poetry.py
