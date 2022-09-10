@@ -1,5 +1,7 @@
 ---
 - hosts: all
+  become: yes
+  become_method: sudo
   vars:
     COLOUR_SCIENCE__ROOT_DIRECTORY: "{{ lookup('env','COLOUR_SCIENCE__ROOT_DIRECTORY') or '/colour-science' }}"
     COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.6' }}"
