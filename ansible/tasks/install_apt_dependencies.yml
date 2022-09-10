@@ -16,6 +16,8 @@
   become: yes
 
 - name: Add "ppa:deadsnakes/ppa" APT Repository
+  become: yes
+  become_method: sudo
   apt_repository:
     validate_certs: no
     repo: 'ppa:deadsnakes/ppa'
