@@ -8,12 +8,8 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - libboost-all-dev
-    - libilmbase-dev
-    - libopenexr-dev
-    - libpng-dev
-    - libtiff5-dev
     - python-setuptools
+    - python3-openimageio
     - python3-venv
     - unzip
   become: yes
