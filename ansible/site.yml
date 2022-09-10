@@ -10,7 +10,7 @@
   tasks:
     - import_tasks: "tasks/install_apt_dependencies.yml"
     - import_tasks: "tasks/install_poetry.yml"
-    - import_tasks: "tasks/install_openimageio.yml"
+    # - import_tasks: "tasks/install_openimageio.yml"
 
     # Project: Awesome Colour
     - import_tasks: "tasks/install_project.yml"
