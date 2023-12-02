@@ -8,11 +8,11 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - python-setuptools
-    - python3-openimageio
-    - python3-venv
-    - software-properties-common
-    - unzip
+      - python-setuptools
+      - python3-openimageio
+      - python3-venv
+      - software-properties-common
+      - unzip
   become: yes
 
 - name: Add "ppa:deadsnakes/ppa" APT Repository
@@ -28,6 +28,6 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - python3.9
-    - python3.9-distutils
+      - python3.9
+      - python3.9-distutils
   become: yes
