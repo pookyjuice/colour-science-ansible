@@ -2,7 +2,7 @@
 - hosts: all
   vars:
     COLOUR_SCIENCE__ROOT_DIRECTORY: "{{ lookup('env','COLOUR_SCIENCE__ROOT_DIRECTORY') or '/colour-science' }}"
-    COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.6' }}"
+    COLOUR_SCIENCE__PYTHON_VERSION: "{{ lookup('env','COLOUR_SCIENCE__PYTHON_VERSION') or '3.10' }}"
     COLOUR_SCIENCE__ACTIVE_PROJECTS: "{{ lookup('env','COLOUR_SCIENCE__ACTIVE_PROJECTS') or 'awesome-colour:colour:colour-checker-detection:colour-analysis-three.js:colour-datasets:colour-demosaicing:colour-dash:colour-hdri:colour-science.org:colour-branding:colour-analysis:colour-mitsuba:colour-nuke:colour-ocean:colour-playground:colour-spectroscope:colour-webhook' }}"
     COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT: "{{ lookup('env','COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT') or '8888' }}"
   environment:
@@ -16,63 +16,54 @@
       when: "'awesome-colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: awesome-colour
-        extras: development
 
     # Project: Colour
     - import_tasks: "tasks/install_project.yml"
       when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
-        extras: optional meshing plotting
 
     # Project: Colour - Checker Detection
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-checker-detection' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-checker-detection
-        extras: development
 
     # Project: Colour - Analysis - Three.js
     - import_tasks: "tasks/install_project.yml"
-      when: "'colour-analysis-three.js' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
+      when: "'colour-visuals' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
-        project: colour-analysis-three.js
-        extras: development
+        project: colour-visuals
 
     # Project: Colour - Datasets
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-datasets' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-datasets
-        extras: development
 
     # Project: Colour - Demosaicing
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-demosaicing' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-demosaicing
-        extras: plotting
 
     # Project: Colour - Dash
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-dash' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-dash
-        extras: development
 
     # Project: Colour - HDRI
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-hdri' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-hdri
-        extras: optional plotting
 
     # Project: colour-science.org
     - import_tasks: "tasks/install_project.yml"
       when: "'colour-science.org' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-science.org
-        extras: development
 
     # Repository: Colour - Branding
     - import_tasks: "tasks/clone_repository.yml"

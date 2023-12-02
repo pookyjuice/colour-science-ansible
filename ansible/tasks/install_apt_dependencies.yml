@@ -23,11 +23,11 @@
     repo: 'ppa:deadsnakes/ppa'
     state: present
 
-- name: Install APT Dependencies for Python 3.8
+- name: Install APT Dependencies for Python 3.10
   apt:
     name: "{{ packages }}"
   vars:
     packages:
-    - python3.8
-    - python3.8-distutils
+    - python3.10
+    - python3.10-distutils
   become: yes
