@@ -6,7 +6,7 @@
     COLOUR_SCIENCE__ACTIVE_PROJECTS: "{{ lookup('env','COLOUR_SCIENCE__ACTIVE_PROJECTS') or 'awesome-colour:colour:colour-checker-detection:colour-analysis-three.js:colour-datasets:colour-demosaicing:colour-dash:colour-hdri:colour-science.org:colour-branding:colour-analysis:colour-mitsuba:colour-nuke:colour-ocean:colour-playground:colour-spectroscope:colour-webhook' }}"
     COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT: "{{ lookup('env','COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT') or '8888' }}"
   environment:
-    PATH: "{{ ansible_env.HOME }}/.poetry/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
   tasks:
     - import_tasks: "tasks/install_apt_dependencies.yml"
     - import_tasks: "tasks/install_poetry.yml"
@@ -22,6 +22,7 @@
       when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
+        without: graphviz
 
     # Project: Colour - Checker Detection
     - import_tasks: "tasks/install_project.yml"
