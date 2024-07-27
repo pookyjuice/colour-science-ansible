@@ -1,0 +1,8 @@
+- name: Install "{{ project }}" APT Dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - exiftool
+      - wine64
+  become: yes
