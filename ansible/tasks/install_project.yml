@@ -12,17 +12,23 @@
   vars:
     repository: "{{ project }}"
 
+- name: Update {{ project }}" Submodules
+  shell: |
+    git submodule update --init --recursive
+  args:
+    chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
+
 - name: Check if "{{ project }}" is Installed
   stat:
     path: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}/poetry.lock"
   register: project_poetry_lock_file
 
-- name: Install Repository Dependencies
+- name: Install {{ project }}" Project Package Dependencies
   shell: |
     poetry env use {{ COLOUR_SCIENCE__PYTHON_VERSION }}
     poetry run python -m pip install --upgrade pip
-    if [ -z "{{ without }}" == "" ]; then poetry install; else poetry install --without {{ without }}; fi
-    $(poetry env info -p)/bin/python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
+    poetry install
+    poetry run pip list | grep -c imageio && $(poetry env info -p)/bin/python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   when: not project_poetry_lock_file.stat.exists
@@ -40,9 +46,18 @@
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   register: project_openimageio_library_exists
 
-- name: Install "OpenImageIO" Library
+- name: Install "OpenImageIO" Library for "{{ project }}"
   shell: |
     ln -s /usr/lib/python3/dist-packages/OpenImageIO*so $(poetry env info -p)/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   when: project_openimageio_library_exists == "False"
+
+- name: Check if "{{ project }}" Extras Task File Exists
+  stat:
+    path: "{{ playbook_dir }}/tasks/extras/extras_{{ project }}.yml"
+  register: project_extras_tasks_file
+
+- name: Include "{{ project }}" Extras Task
+  include_tasks: "{{ project_extras_tasks_file.stat.path }}"
+  when: project_extras_tasks_file.stat.exists

@@ -22,7 +22,6 @@
       when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
-        without: graphviz
 
     # Project: Colour - Demosaicing
     - import_tasks: "tasks/install_project.yml"
