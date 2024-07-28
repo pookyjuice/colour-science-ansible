@@ -5,6 +5,7 @@
     packages:
       - cargo
       - exiftool
+      - libgl1-mesa-glx
   become: yes
 
 - name: Check if "dnglab" is Cloned
