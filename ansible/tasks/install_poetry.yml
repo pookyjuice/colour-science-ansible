@@ -25,19 +25,19 @@
           fi;
       }
 
-- name: Download Poetry
+- name: Download "Poetry"
   get_url:
     url: https://install.python-poetry.org
     dest: /tmp/install-poetry.py
   when: not poetry_executable.stat.exists
 
-- name: Install Poetry
+- name: Install "Poetry"
   script: /tmp/install-poetry.py
   args:
     executable: python3
   when: not poetry_executable.stat.exists
 
-- name: Add Poetry to $PATH in ".bashrc"
+- name: Add "Poetry" to "$PATH" in ".bashrc"
   blockinfile:
     state: present
     insertafter: EOF
