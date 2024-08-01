@@ -1,9 +1,11 @@
-- name: Update APT Packages
+- name: Update "apt" Packages
   apt:
-    upgrade: dist
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
   become: yes
 
-- name: Install APT Dependencies
+- name: Install "apt" Dependencies
   apt:
     name: "{{ packages }}"
   vars:
