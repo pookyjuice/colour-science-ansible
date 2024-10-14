@@ -1,0 +1,42 @@
+- name: Check if "uv" is Installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.cargo/bin"
+  register: uv_executable
+
+- name: Add "uva" Function
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add \"uva\" Function"
+    content: |
+      # Activate uv virtual environment.
+      function uva {
+          if [ -f "pyproject.toml" ]; then
+              source source .venv/bin/activate
+          else
+              echo "The current directory has no associated \"uv\" capability!"
+          fi
+      }
+
+- name: Download "uv"
+  get_url:
+    url: https://astral.sh/uv/install.sh
+    dest: /tmp/install-uv.sh
+  when: not uv_executable.stat.exists
+
+- name: Install "uv"
+  script: /tmp/install-uv.sh
+  args:
+    executable: sh
+  when: not uv_executable.stat.exists
+
+- name: Add "uv" to "$PATH" in ".bashrc"
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add uv to $PATH"
+    content: |
+      export PATH={{ ansible_env.HOME }}/.cargo/bin:$PATH
+

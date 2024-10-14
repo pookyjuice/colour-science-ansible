@@ -20,29 +20,28 @@
 
 - name: Install "{{ project }}" Project Package Dependencies
   shell: |
-    poetry env use {{ COLOUR_SCIENCE__PYTHON_VERSION }}
-    poetry run python -m pip install --upgrade pip
-    poetry install
-    poetry run pip list | grep -c imageio && $(poetry env info -p)/bin/python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
+    uv venv --python {{ COLOUR_SCIENCE__PYTHON_VERSION }}
+    uv sync --all-extras
+    uv run pip list | grep -c imageio && uv run python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
 
 - name: Install "pre-commit" Hooks for "{{ project }}"
   shell: |
-    poetry run pre-commit install --install-hooks
+    uv run pre-commit install --install-hooks
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
 
 - name: Check if "OpenImageIO" Library is Installed for "{{ project }}"
   shell: |
-    [ -f "$(poetry env info -p)/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so" ] && echo True || echo False
+    [ -f ".venv/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so" ] && echo True || echo False
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   register: project_openimageio_library_exists
 
 - name: Install "OpenImageIO" Library for "{{ project }}"
   shell: |
-    ln -s /usr/lib/python3/dist-packages/OpenImageIO*so $(poetry env info -p)/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so || exit 0
+    ln -s /usr/lib/python3/dist-packages/OpenImageIO*so .venv/lib/python{{ COLOUR_SCIENCE__PYTHON_VERSION }}/site-packages/OpenImageIO.so || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"
   when: project_openimageio_library_exists.stdout == "False"

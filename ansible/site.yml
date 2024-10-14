@@ -9,7 +9,7 @@
     PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
   tasks:
     - import_tasks: "tasks/install_apt_dependencies.yml"
-    - import_tasks: "tasks/install_poetry.yml"
+    - import_tasks: "tasks/install_uv.yml"
 
     # Project: Awesome Colour
     - import_tasks: "tasks/install_project.yml"
