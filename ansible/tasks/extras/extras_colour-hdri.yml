@@ -6,30 +6,31 @@
       - cargo
       - exiftool
       - libgl1-mesa-glx
+      - darktable
   become: yes
 
-- name: Check if "dnglab" is Cloned
+- name: Ensure rustup is installed
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    . "$HOME/.cargo/env"
+  args:
+    creates: /root/.cargo/bin/rustup
+
+- name: Source Cargo environment after rustup installation
+  shell: |
+    . "$HOME/.cargo/env"
+  args:
+    executable: /bin/bash
+
+- name: Update rustc to latest stable version
+  shell: rustup update stable
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+
+- name: Ensure "dnglab" directory exists
   stat:
     path: "/var/tmp/dnglab"
   register: dnglab_local_directory
-
-- name: Clone "dnglab"
-  git:
-    repo: "https://github.com/dnglab/dnglab.git"
-    dest: "/var/tmp/dnglab"
-  when: not dnglab_local_directory.stat.exists
-
-- name: Check if "dnglab" is Built
-  stat:
-    path: "/var/tmp/dnglab/target/release/dnglab"
-  register: dnglab_executable
-
-- name: Build "dnglab"
-  shell: |
-    cargo build --release
-  args:
-    chdir: "/var/tmp/dnglab"
-  when: not dnglab_executable.stat.exists
 
 - name: Check if "dnglab" is Linked
   stat:

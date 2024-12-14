@@ -11,6 +11,8 @@
 - import_tasks: "clone_repository.yml"
   vars:
     repository: "{{ project }}"
+    branch: "{{ version | default('main') }}"
+    repository_base_url: "{{ repository_base }}"
 
 - name: Update "{{ project }}" Submodules
   shell: |
@@ -22,6 +24,7 @@
   shell: |
     uv venv --python {{ COLOUR_SCIENCE__PYTHON_VERSION }}
     uv sync --all-extras
+    uv run pip install ".[optional]"
     uv run pip list | grep -c imageio && uv run python -c "import imageio;imageio.plugins.freeimage.download()" || exit 0
   args:
     chdir: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }}"

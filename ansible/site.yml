@@ -34,6 +34,8 @@
       when: "'colour-hdri' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-hdri
+        version: feature/graph
+        repository_base: "https://github.com/pookyjuice/"
 
     # Project: Colour - Checker Detection
     - import_tasks: "tasks/install_project.yml"
