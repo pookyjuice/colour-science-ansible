@@ -4,7 +4,7 @@
     path: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ repository }}"
   register: repository_local_directory
 
-- name: "Cloning repository: { repository_base_url | default('https://github.com/colour-science/') }}{{ repository }} with branch: {{ branch | default('main') }}"
+- name: "Cloning repository: { repository_base_url | default('https://github.com/colour-science/') }}{{ repository }} with branch: {{ branch | default('master') }}"
   git:
     repo: "{{ repository_base_url | default('https://github.com/colour-science/') }}{{ repository }}.git"
     dest: "{{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ repository }}"
