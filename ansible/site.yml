@@ -6,7 +6,7 @@
     COLOUR_SCIENCE__ACTIVE_PROJECTS: "{{ lookup('env','COLOUR_SCIENCE__ACTIVE_PROJECTS') or 'awesome-colour:colour:colour-demosaicing:colour-hdri:colour-checker-detection:colour-datasets:colour-visuals:colour-dash:colour-science.org:colour-branding:colour-mitsuba:colour-nuke:colour-webhook' }}"
     COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT: "{{ lookup('env','COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT') or '8888' }}"
   environment:
-    PATH: "/root/.cargo/bin:{{ ansible_env.PATH }}"
+    PATH: "/root/.local/bin:{{ ansible_env.PATH }}"
   tasks:
     - import_tasks: "tasks/install_apt_dependencies.yml"
     - import_tasks: "tasks/install_uv.yml"

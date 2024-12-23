@@ -1,6 +1,6 @@
 - name: Check if "uv" is Installed
   stat:
-    path: "/root/.cargo/bin"
+    path: "/root/.local/bin"
   register: uv_executable
 
 - name: Add "uva" Function
@@ -38,5 +38,5 @@
     dest: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Add uv to $PATH"
     content: |
-      export PATH=/root/.cargo/bin:$PATH
+      export PATH=/root/.local/bin:$PATH
 
