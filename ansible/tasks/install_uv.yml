@@ -1,6 +1,6 @@
 - name: Check if "uv" is Installed
   stat:
-    path: "/root/.local/bin"
+    path: "{{ ansible_env.HOME }}/.local/bin/uv"
   register: uv_executable
 
 - name: Add "uva" Function
@@ -13,7 +13,7 @@
       # Activate uv virtual environment.
       function uva {
           if [ -f "pyproject.toml" ]; then
-              source source .venv/bin/activate
+              source .venv/bin/activate
           else
               echo "The current directory has no associated \"uv\" capability!"
           fi
@@ -38,5 +38,5 @@
     dest: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Add uv to $PATH"
     content: |
-      export PATH=/root/.local/bin:$PATH
+      export PATH={{ ansible_env.HOME }}/.local/bin:$PATH
 
