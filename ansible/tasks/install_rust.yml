@@ -1,0 +1,26 @@
+- name: Check if "Rust" is Installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.cargo/bin/rustc"
+  register: rust_executable
+
+- name: Download "Rust"
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup-init.sh
+  when: not rust_executable.stat.exists
+
+- name: Install "Rust"
+  script: /tmp/rustup-init.sh -y
+  args:
+    executable: sh
+  when: not rust_executable.stat.exists
+
+- name: Add "Rust" to "$PATH" in ".bashrc"
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add Rust to $PATH"
+    content: |
+      export PATH={{ ansible_env.HOME }}/.cargo/bin:$PATH
+

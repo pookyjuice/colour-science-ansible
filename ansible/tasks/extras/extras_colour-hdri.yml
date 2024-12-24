@@ -1,9 +1,10 @@
+- include_tasks: "tasks/install_rust.yml"
+
 - name: Install "{{ project }}" APT Dependencies
   apt:
     name: "{{ packages }}"
   vars:
     packages:
-      - cargo
       - exiftool
       - libgl1-mesa-glx
       - darktable

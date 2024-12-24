@@ -5,7 +5,7 @@
     dest: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Add \"{{ project }}\" Aliases"
     content: |
-      alias {{ project }}="cd {{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }} && poem"
+      alias {{ project }}="cd {{ COLOUR_SCIENCE__ROOT_DIRECTORY }}/{{ project }} && uva"
       alias {{ project }}-notebook="{{ project }} && cd {{ COLOUR_SCIENCE__ROOT_DIRECTORY }} && jupyter notebook --ip=0.0.0.0 --port={{ COLOUR_SCIENCE__JUPYTER_NOTEBOOK_PORT }} --allow-root"
 
 - import_tasks: "clone_repository.yml"
