@@ -22,6 +22,7 @@
       when: "'colour' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour
+        version: develop
 
     # Project: Colour - Demosaicing
     - import_tasks: "tasks/install_project.yml"
@@ -34,7 +35,7 @@
       when: "'colour-hdri' in COLOUR_SCIENCE__ACTIVE_PROJECTS"
       vars:
         project: colour-hdri
-        version: feature/graph
+        version: develop
         repository_base: "https://github.com/pookyjuice/"
 
     # Project: Colour - Checker Detection
