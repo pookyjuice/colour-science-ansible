@@ -7,7 +7,6 @@
     packages:
       - exiftool
       - libgl1-mesa-glx
-      - darktable
   become: yes
 
 - name: Ensure rustup is installed
