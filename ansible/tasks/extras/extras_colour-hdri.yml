@@ -5,6 +5,7 @@
     name: "{{ packages }}"
   vars:
     packages:
+      - cargo
       - exiftool
       - libgl1-mesa-glx
   become: yes
